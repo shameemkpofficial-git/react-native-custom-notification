@@ -1,10 +1,22 @@
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
+import PushNotification from 'react-native-push-notification';
+import {
+  showNotification,
+  handleScheduleNotification,
+  handleCancelNotification,
+  notificationConfig,
+  createChannelId,
+} from './notification.android';
 
 const App = () => {
+  notificationConfig();
+  createChannelId();
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.Button}>
+      <TouchableOpacity
+        style={styles.Button}
+        onPress={() => showNotification()}>
         <Text style={styles.btntxt}>Notification</Text>
       </TouchableOpacity>
     </View>
