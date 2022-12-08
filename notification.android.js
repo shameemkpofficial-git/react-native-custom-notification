@@ -1,13 +1,35 @@
 import PushNotification from 'react-native-push-notification';
+import React from 'react';
+import moment from 'moment';
+import {user} from './birthday';
 
 const showNotification = (title, message) => {
-  alert('jump');
-  PushNotification.localNotification({
-    title: 'Freston User App',
-    message: 'This is a testing notification for users',
-    channelId: 'channel-id',
-    channelName: 'My channel',
+  //   const [dob, setDob] = React.useState([]);
+  const d = new Date();
+  const month = d.getMonth();
+  const day = d.getDate();
+  const currentDate = month + day;
+  let date = moment(d).format('MM-D');
+  const id = user.map(item => {
+    if (item.dob === moment(d).format('MM-D')) {
+      PushNotification.localNotification({
+        title: 'Birthday',
+        message: 'A wonderful day for',
+        channelId: 'channel-id',
+        channelName: 'My channel',
+        date: new Date(Date.now() + 10000),
+        largeIconUrl: 'https://www.patterns.dev/img/reactjs/react-logo@3x.svg',
+        bigText:
+          'My big text that will be shown when notification is expanded. Styling can be done using HTML tags(see android docs for details)',
+        color: 'red',
+        groupSummary: false,
+      });
+    }
+    console.log(moment(d).format('MM-D'), '', item.dob);
   });
+
+  console.log(typeof date);
+  //   console.log(currentDate);
 };
 
 const handleScheduleNotification = (title, message) => {
@@ -18,6 +40,7 @@ const handleScheduleNotification = (title, message) => {
     channelId: 'channel-id',
     channelName: 'My channel',
     date: new Date(Date.now() + 5000),
+    largeIconUrl: 'https://www.patterns.dev/img/reactjs/react-logo@3x.svg',
   });
 };
 
